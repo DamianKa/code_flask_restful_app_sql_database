@@ -17,6 +17,10 @@ users =[
 ]
 cursor.executemany(insert_query, users)
 
+select_query = "SELECT * FROM users"  # I could write SElECT id ... etc...
+for row in cursor.execute(select_query):
+    print(row)
+
 connection.commit()
 
 connection.close()
