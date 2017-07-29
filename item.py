@@ -40,20 +40,36 @@ class Item(Resource):
 
         item = {'name': name, 'price': data['price']}
 
+        try:
+            self.insert(item)
+        except:
+            return {'message': "An error occured inserting the item."}, 500 #internal server error
 
 
-        connection = sqlite3.connect('data.db')
-        cursor = connection.cursor()
 
-        query = "INSERT INTO items VALUES (?, ?)"
-        cursor.execute(query, (item['name'], item['price']))
 
-        connection.commit()
-        connection.close()
 
 
 
         return item, 201 # code for created
+
+
+    @classmethod
+    def insert(cls, item):
+
+
+
+    connection = sqlite3.connect('data.db')
+    cursor = connection.cursor()
+
+    query = "INSERT INTO items VALUES (?, ?)"
+    cursor.execute(query, (item['name'], item['price']))
+
+    connection.commit()
+    connection.close()
+
+
+
 
     #I can add @jwt_required() before every method here and it will mean that it will require JWT token
     def delete(self, name):
