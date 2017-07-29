@@ -41,7 +41,7 @@ class User:
 
 class UserRegister(Resource):
     parser = reqparse.RequestParser()
-    parser.add_argument('user',
+    parser.add_argument('username',
         type = str,
         required = True,
         help = "This field cannot be left blank"
