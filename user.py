@@ -30,7 +30,7 @@ class User:
         query = "SELECT * FROM users WHERE id = ?"
         result = cursor.execute(query, (_id,))
         row = result.fetchone()
-        if row is not NONE:   # = if row:
+        if row is not None:   # = if row:
             user = cls(*row)
         else:
             user = None
