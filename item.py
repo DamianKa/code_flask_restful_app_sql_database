@@ -57,8 +57,16 @@ class Item(Resource):
 
     #I can add @jwt_required() before every method here and it will mean that it will require JWT token
     def delete(self, name):
-        global items
-        items = list(filter(lambda x: x['name'] != name, items))
+        connection = sqlite3.connect('data.db')
+        cursor = connection.cursor()
+
+        query = "DELETE FROM items WHERE name=?"
+        cursor.execute(query, (name,))
+
+        connection.commit()
+        connection.close()
+
+
         return {'message': 'Item deleted'}
 
     def put(self, name): # put is idempotent so I can call the funcktion many times and I will not end up with many items
